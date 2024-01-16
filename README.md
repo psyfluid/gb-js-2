@@ -1,1 +1,1 @@
-# gb-js-2
+# Продолжение JavaScript
