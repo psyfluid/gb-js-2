@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="shortcut icon" href="#" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="data.js"></script>
+</head>
+
+<body>
+  <div class="featured-items">
+    <h1 class="title">Featured Items</h1>
+    <div class="subtitle">Shop for items based on what we featured in this week</div>
+    <div class="products"></div>
+    <button class="browse-button">Browse All Product</button>
+  </div>
+
+  <script>
+    'use strict';
+
+    function getCurrencyFormatWithSymbol(currencyCode) {
+      return {
+        style: 'currency',
+        currency: currencyCode,
+        currencyDisplay: 'symbol',
+      }
+    }
+    const content = document.querySelector('.products');
+    const data = JSON.parse(dataProducts);
+    data.forEach((item) => {
+      const div = document.createElement('div');
+      div.classList.add('item');
+
+      const itemImg = document.createElement('div');
+      itemImg.classList.add('item__img');
+      div.append(itemImg);
+
+      const img = document.createElement('img');
+      img.classList.add('item__img-img');
+      img.src = item.image_url;
+      img.alt = `${item.title} ${item.image_url})`;
+      itemImg.append(img);
+
+      const imgHover = document.createElement('div');
+      imgHover.classList.add('item__img-hover');
+      itemImg.append(imgHover);
+
+      itemImg.addEventListener('mouseover', () => {
+        imgHover.style.visibility = 'visible';
+      });
+
+      itemImg.addEventListener('mouseout', () => {
+        imgHover.style.visibility = 'hidden';
+      });
+
+      const imgCart = document.createElement('div');
+      imgCart.classList.add('item__img-cart');
+      imgHover.append(imgCart);
+
+      const imgCart__icon = document.createElement('img');
+      imgCart__icon.src = 'img/cart.svg';
+      imgCart__icon.alt = 'Add to Cart';
+      imgCart.append(imgCart__icon);
+
+      const imgCart__text = document.createElement('div');
+      imgCart.classList.add('item__img-cart__text');
+      imgCart__text.textContent = 'Add to Cart';
+      imgCart.append(imgCart__text);
+
+      const itemContent = document.createElement('div');
+      itemContent.classList.add('item__content');
+      div.append(itemContent);
+
+      const itemContentTitle = document.createElement('div');
+      itemContentTitle.classList.add('item__content__title');
+      itemContentTitle.textContent = `${item.brand} ${item.title}`;
+      itemContent.append(itemContentTitle);
+
+      const itemContentDesc = document.createElement('div');
+      itemContentDesc.classList.add('item__content__desc');
+      itemContentDesc.textContent = item.desc;
+      itemContent.append(itemContentDesc);
+
+      const itemContentPrice = document.createElement('div');
+      itemContentPrice.classList.add('item__content__price');
+      itemContentPrice.textContent =
+        `${Intl.NumberFormat(navigator.language, {
+          style: 'currency',
+          currency: item.currency,
+        }).format(item.price)}`;
+      itemContent.append(itemContentPrice);
+
+      content.append(div);
+    });
+
+  </script>
+</body>
+
+</html>
