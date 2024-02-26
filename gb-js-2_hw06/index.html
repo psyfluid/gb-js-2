@@ -24,13 +24,6 @@
   <script>
     'use strict';
 
-    function getCurrencyFormatWithSymbol(currencyCode) {
-      return {
-        style: 'currency',
-        currency: currencyCode,
-        currencyDisplay: 'symbol',
-      }
-    }
     const content = document.querySelector('.products');
     const data = JSON.parse(dataProducts);
     data.forEach((item) => {
